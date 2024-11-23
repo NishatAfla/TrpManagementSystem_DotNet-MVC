@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h2>Delete Channel</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <p>Are you sure you want to delete this channel?</p>
+    <p>
+        <strong>@Model.ChannelName</strong>
+    </p>
+
+    <input type="hidden" name="Id" value="@Model.ChannelId" />
+    <button type="submit" name="dcsn" value="Yes">Yes</button>
+    <button type="submit" name="dcsn" value="No">No</button>
+}
