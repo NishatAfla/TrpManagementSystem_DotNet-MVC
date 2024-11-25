@@ -5,7 +5,38 @@
 
 <h2>ProgramList</h2>
 
-<a href="/program/createprogram">Create</a>
+
+<a href="/trp/channellist" class="btn btn-warning">show channel list</a>
+<a href="/program/createprogram" class="btn btn-warning">Create a new program</a>
+
+
+<form method="get" action="/program/searchprograms">
+    <table>
+        <tr>
+            <td>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Search by Program Name" />
+            </td>
+            <td>
+                <input type="number" name="trpScore" step="0.1" class="form-control" placeholder="Search by TRP Score" />
+            </td>
+            <td>
+                <select name="channelId" class="form-control">
+                    <option value="">-- Select a Channel --</option>
+                    @foreach (var channel in ViewBag.Channels as List<SelectListItem>)
+                    {
+                        <option value="@channel.Value">@channel.Text</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
 <table class="table table-bordered">
     <tr>
         <th>program Id</th>
@@ -13,14 +44,13 @@
         <th>program Name</th>
         <th>TRPScore</th>
         <th>AirTime</th>
-
-
     </tr>
     @foreach (var d in Model)
     {
         <tr>
             <td>@d.ProgramId</td>
             <td>@d.ChannelId</td>
+
             <td>@d.ProgramName</td>
             <td>@d.TRPScore</td>
             <td>@d.AirTime</td>
