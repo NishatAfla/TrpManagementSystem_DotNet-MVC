@@ -27,5 +27,7 @@ namespace TrpManagementSystem.EF
     
         public virtual DbSet<ChannelTbl> ChannelTbls { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
+        public virtual DbSet<RoleTbl> RoleTbls { get; set; }
+        public virtual DbSet<loginTbl> loginTbls { get; set; }
     }
 }

@@ -54,12 +54,21 @@
             <td>@d.ProgramName</td>
             <td>@d.TRPScore</td>
             <td>@d.AirTime</td>
+           
+            
             <td>
+                @{
+                    var user = (TrpManagementSystem.EF.loginTbl)Session["user"];
+                }
+                @if (user != null && user.Role == 2)
+                {
+                    <a href="/program/edit/@d.ProgramId" class="btn btn-warning">Edit</a>
+                    <a href="/program/deleteprogram/@d.ProgramId" class="btn btn-danger">delete</a>
 
-                <a href="/program/edit/@d.ProgramId" class="btn btn-warning">Edit</a>
-                <a href="/program/deleteprogram/@d.ProgramId" class="btn btn-danger">delete</a>
-
+                }
             </td>
+            
+         
 
         </tr>
 

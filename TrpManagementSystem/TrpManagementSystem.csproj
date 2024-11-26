@@ -128,12 +128,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\Admin.cs" />
+    <Compile Include="Auth\Logged.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TRPController.cs" />
     <Compile Include="DTO\ChannelDTO.cs" />
     <Compile Include="DTO\ProgramDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="EF\ChannelTbl.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\loginTbl.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Model1.Context.cs">
@@ -152,6 +159,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Program.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\RoleTbl.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -235,6 +245,8 @@
     <Content Include="Views\Program\CreateProgram.cshtml" />
     <Content Include="Views\Program\Edit.cshtml" />
     <Content Include="Views\Program\DeleteProgram.cshtml" />
+    <Content Include="Views\Role\CreateUser.cshtml" />
+    <Content Include="Views\Role\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

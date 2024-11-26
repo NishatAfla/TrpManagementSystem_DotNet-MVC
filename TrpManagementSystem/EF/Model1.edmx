@@ -14,6 +14,15 @@
           <Property Name="EstablishedYear" Type="int" Nullable="false" />
           <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="loginTbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Program">
           <Key>
             <PropertyRef Name="ProgramId" />
@@ -23,6 +32,15 @@
           <Property Name="TRPScore" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="ChannelId" Type="int" Nullable="false" />
           <Property Name="AirTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleTbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Channel_Program">
           <End Role="ChannelTbl" Type="Self.ChannelTbl" Multiplicity="1" />
@@ -38,7 +56,9 @@
         </Association>
         <EntityContainer Name="DotnetDBModelStoreContainer">
           <EntitySet Name="ChannelTbl" EntityType="Self.ChannelTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loginTbl" EntityType="Self.loginTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleTbl" EntityType="Self.RoleTbl" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Channel_Program" Association="Self.FK_Channel_Program">
             <End Role="ChannelTbl" EntitySet="ChannelTbl" />
             <End Role="Program" EntitySet="Program" />
@@ -88,7 +108,27 @@
             <End Role="ChannelTbl" EntitySet="ChannelTbls" />
             <End Role="Program" EntitySet="Programs" />
           </AssociationSet>
+          <EntitySet Name="RoleTbls" EntityType="DotnetDBModel.RoleTbl" />
+          <EntitySet Name="loginTbls" EntityType="DotnetDBModel.loginTbl" />
         </EntityContainer>
+        <EntityType Name="RoleTbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="loginTbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -113,6 +153,26 @@
                 <ScalarProperty Name="TRPScore" ColumnName="TRPScore" />
                 <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
                 <ScalarProperty Name="AirTime" ColumnName="AirTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleTbls">
+            <EntityTypeMapping TypeName="DotnetDBModel.RoleTbl">
+              <MappingFragment StoreEntitySet="RoleTbl">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loginTbls">
+            <EntityTypeMapping TypeName="DotnetDBModel.loginTbl">
+              <MappingFragment StoreEntitySet="loginTbl">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

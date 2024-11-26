@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using TrpManagementSystem.DTO;
 using TrpManagementSystem.EF;
+using TrpManagementSystem.Auth;
+
 
 namespace TrpManagementSystem.Controllers
 {
@@ -18,6 +20,7 @@ namespace TrpManagementSystem.Controllers
             {
                 ProgramId = d.ProgramId,
                 ChannelId = d.ChannelId,
+               
                 ProgramName = d.ProgramName,
                 TRPScore = d.TRPScore,
                
@@ -50,8 +53,18 @@ namespace TrpManagementSystem.Controllers
 
         public ActionResult ProgramList()
         {
-            var data = db.Programs.ToList();
-            return View(Convert(data));
+            var programs = db.Programs.ToList();
+            var channels = db.ChannelTbls.Select(c => new SelectListItem
+            {
+                Value = c.ChannelId.ToString(),
+                Text = c.ChannelName
+            }).ToList();
+
+            ViewBag.Channels = channels;
+            return View(Convert(programs));
+
+           // var data = db.Programs.ToList();
+           // return View(Convert(data));
         }
         [HttpGet]
 
@@ -96,7 +109,7 @@ namespace TrpManagementSystem.Controllers
 
 
         }
-
+        [Admin]
           [HttpGet]
           public ActionResult Edit(int id)
           {
@@ -144,8 +157,9 @@ namespace TrpManagementSystem.Controllers
             return View(d);
 
           }
-        
-          [HttpGet]
+
+        [Admin] 
+        [HttpGet]
           public ActionResult DeleteProgram(int id)
           {
               var exobj = db.Programs.Find(id);
@@ -163,5 +177,64 @@ namespace TrpManagementSystem.Controllers
               }
               return RedirectToAction("ProgramList");
           }
+
+
+        /*  public ActionResult SearchPrograms(string searchTerm, decimal? trpScore)
+          {
+              // Fetch all programs initially
+              var programs = db.Programs.AsQueryable();
+
+              // Apply filtering based on search term and TRP score
+              if (!string.IsNullOrEmpty(searchTerm))
+              {
+                  programs = programs.Where(p => p.ProgramName.Contains(searchTerm));
+              }
+              if (trpScore.HasValue)
+              {
+                  programs = programs.Where(p => p.TRPScore == trpScore);
+              }
+
+              // Convert and return the filtered list
+              var filteredPrograms = ProgramController.Convert(programs.ToList());
+              return View("ProgramList", filteredPrograms);
+          }*/
+        public ActionResult SearchPrograms(string searchTerm, decimal? trpScore, int? channelId)
+        {
+            // Fetch all programs initially
+            var programs = db.Programs.AsQueryable();
+
+            // Apply filtering based on search term
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                programs = programs.Where(p => p.ProgramName.Contains(searchTerm));
+            }
+
+            // Apply filtering based on TRP score
+            if (trpScore.HasValue)
+            {
+                programs = programs.Where(p => p.TRPScore == trpScore);
+            }
+
+            // Apply filtering based on channel ID
+            if (channelId.HasValue)
+            {
+                programs = programs.Where(p => p.ChannelId == channelId);
+            }
+
+            // Convert and return the filtered list
+            var filteredPrograms = ProgramController.Convert(programs.ToList());
+
+            // Repopulate the channel dropdown
+            var channels = db.ChannelTbls.Select(c => new SelectListItem
+            {
+                Value = c.ChannelId.ToString(),
+                Text = c.ChannelName
+            }).ToList();
+            ViewBag.Channels = channels;
+
+            return View("ProgramList", filteredPrograms);
+        }
+
+
     }
 }

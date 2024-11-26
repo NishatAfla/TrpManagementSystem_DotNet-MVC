@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="DotnetDBModel.ChannelTbl" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DotnetDBModel.Program" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="DotnetDBModel.FK_Channel_Program" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DotnetDBModel.RoleTbl" Width="1.5" PointX="1.125" PointY="3.625" />
+        <EntityTypeShape EntityType="DotnetDBModel.loginTbl" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
